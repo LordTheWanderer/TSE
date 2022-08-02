@@ -69,7 +69,7 @@ function generateTrackersList(list, parent) {
         let a = document.createElement("a");
         a.innerText = item["trackerName"];
         a.href = item["trackerURL"];
-        a.classList.add("menu_div-a");
+        a.classList.add("menu_div-name");
         div.appendChild(a);
         parent.appendChild(div);
     }

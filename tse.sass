@@ -146,7 +146,7 @@ h1
         &__grey
             font-style: italic
             color: var(--grey)
-.container-menu
+// .container-menu
 .menu
     width: min-content
     padding-right: 5px
@@ -185,14 +185,16 @@ h1
             opacity: .4
             transition: .2s opacity
             pointer-events: none
-        .menu_div-a
+        .menu_div-name
             opacity: .4
             transition: .2s opacity
+            padding-left: 3px
+            color: var(--blue)
         &.active
             .menu_icon
                 opacity: 1
                 pointer-events: auto
-            .menu_div-a
+            .menu_div-name
                 opacity: 1
     &_button
         width: 100%
@@ -218,14 +220,20 @@ h1
         display: inline
         &.inactive
             filter: grayscale(100%)
+        &.error
+            &::before
+                content: "●"
+                color: red
+                padding-right: 2px
+                vertical-align: top
     input
         margin-right: 3px
     a
         padding-left: 3px
-    button, a, input, .menu_settings
+    button, input, .menu_a-button, .menu_settings, .menu_div-name, .little-text
         display: none
     &.active
-        button, a, input
+        button, a, input, .menu_div-name, .little-text
             display: initial
         .menu_a-button, .menu_settings
             display: block
@@ -234,6 +242,8 @@ h1
     font-size: 9px
     color: var(--green)
     font-weight: bold
+    &.error
+        color: red
 .author
     position: fixed
     left: 0

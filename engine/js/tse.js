@@ -61,23 +61,24 @@ function genTrackersMenu() {
         }
         menuCheckbox.setAttribute("data-id", i);
         menuCheckbox.addEventListener("change", handleCheckbox);
-        var menuItem = document.createElement("div");
+        var menuItem = document.createElement("a");
         menuItem.classList.add("menu_item");
         menuItem.setAttribute("data-tracker", trackers[i]["trackerName"]);
+        menuItem.setAttribute("title", trackers[i]["trackerDescription"]);
+        menuItem.href = trackers[i]["trackerURL"];
+        menuItem.target = "_blank";
         var menuIcon = document.createElement("img");
         menuIcon.src = trackers[i]["trackerIcon"];
         menuIcon.alt = trackers[i]["trackerName"] + "-icon";
         menuIcon.classList.add("menu_icon");
         menuIcon.setAttribute("data-tracker", trackers[i]["trackerName"]);
-        var menuA = document.createElement("a");
-        menuA.setAttribute("data-tracker", trackers[i]["trackerName"]);
-        menuA.setAttribute("title", trackers[i]["trackerDescription"]);
-        menuA.classList.add("menu_div-a");
-        menuA.innerText = trackers[i]["trackerName"];
-        menuA.href = trackers[i]["trackerURL"];
-        menuA.target = "_blank";
+        var menuDivName = document.createElement("span");
+        menuDivName.setAttribute("data-tracker", trackers[i]["trackerName"]);
+        menuDivName.classList.add("menu_div-name");
+        menuDivName.innerText = trackers[i]["trackerName"];
+        // menuDivName.href = trackers[i]["trackerURL"];
         menuItem.appendChild(menuIcon);
-        menuItem.appendChild(menuA);
+        menuItem.appendChild(menuDivName);
         menuDiv.appendChild(menuCheckbox);
         menuDiv.appendChild(menuItem);
         menu.appendChild(menuDiv);
@@ -87,7 +88,7 @@ function genTrackersMenu() {
 function genTrackerResultsCount(trackerName, count) {
     var menuDivs = document.querySelectorAll(".menu_div");
     menuDivs.forEach(x => {
-        let a = x.querySelector(".menu_div-a");
+        let a = x.querySelector(".menu_div-name");
         let counter = x.querySelector(".little-text");
         if (a.getAttribute("data-tracker") == trackerName) {
             if (count >= 0) {
@@ -100,11 +101,15 @@ function genTrackerResultsCount(trackerName, count) {
                     a.appendChild(span);
                 }
             } else {
+                let parent = a.closest(".menu_item");
+                parent.classList.add("error");
                 if (counter) {
+                    counter.classList.add("error");
                     counter.innerText = "err";
                 } else {
                     var span = document.createElement("span");
                     span.classList.add("little-text");
+                    span.classList.add("error");
                     span.innerText = "err";
                     a.appendChild(span);
                 }
@@ -463,6 +468,7 @@ function search(search) {
     });
 }
 
+// gets page from tracker
 function fetcher(search, tracker) {
     if (tracker["trackerActive"]) {
         var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "false";
@@ -473,21 +479,45 @@ function fetcher(search, tracker) {
                 {  
                     method: "GET"
                 })
-                .then(response => response.arrayBuffer())
+                .then(response => {
+                    if (response.ok) return response.arrayBuffer();
+                    return null;
+                })
                 .then(buffer => {
-                    var decoder = new TextDecoder("windows-1251");
-                    var text = decoder.decode(buffer);
-                    parser(text, tracker);
+                    if (buffer) {
+                        var decoder = new TextDecoder("windows-1251");
+                        var text = decoder.decode(buffer);
+                        parser(text, tracker);
+                    } else {
+                        genTrackerResultsCount(tracker["trackerName"], "err");
+                    }
+                })
+                .catch(error => {
+                    console.log(tracker["trackerName"]);
+                    console.log(error);
+                    genTrackerResultsCount(tracker["trackerName"], error);
                 })
         } else if (tracker["trackerActive"]) {
             fetch(searchURL, 
                 {  
                     method: "GET"
                 })
-                .then(response => response.text())
-                .then(text => {
-                    parser(text, tracker);
+                .then(response => {
+                    if (response.ok) return response.text();
+                    return null;
                 })
+                .then(text => {
+                    if (text) {
+                        parser(text, tracker);
+                    } else {
+                        genTrackerResultsCount(tracker["trackerName"], "err");
+                    }
+                })
+                .catch(error => {
+                    console.log(tracker["trackerName"]);
+                    console.log(error);
+                    genTrackerResultsCount(tracker["trackerName"], error);
+                })                
         }
     }
 }

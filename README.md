@@ -114,12 +114,16 @@ v0.4.6 06.09.2021
 * Sorting can be disabled by clicks on table header
 * Minor fixes
 
-v0.4.9
+v0.4.9 09.09.2021
 * Edited permissions: From "All websites" to: suggestqueries.google.com - for google suggestions; rutracker.org, rutor.info, nnmclub.to - base trackers
 * "Reset" button will also remove optional permissions
 * Minor fixes
 You can go to Firefox > Extensions > TSE > Permissions tab and allow TSE to access to all websites if you don't want questions about permissions
 
-v0.5
+v0.5 06.12.2021
 * Table rows background color changes on mouse hover
 * Minor changes
+
+v0.5.1 02.08.2022
++ Added trackers errors detection
+- Removed Filebase tracker since it doesn't work anymore
