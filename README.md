@@ -7,8 +7,6 @@ Just simple torrents search engine. It doesn't use any third party sites etc. Ju
 
 Trackers support: Rutracker, Rutor, NoNaMe Club, Kinozal, Pirabit, Underverse, BigFANGroup, UnionGang, RiperAM, bitru.
 
-GitHub
-
 Main features:
 - Simultaneous search across multiple trackers
 - Google suggestions while typing (Mouse/Arrows/Esc/Enter/Backspace)
