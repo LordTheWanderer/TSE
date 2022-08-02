@@ -11,7 +11,7 @@
 //      ["byte/rusShort/rusDots", "attr", "data-ts_text"]: data from attribute
 // sizeType: Size to byte, source is
 //      ["byte", ""]: byte = 1620757868
-//      ["eng", ""]: russian = 4.49 GB
+//      ["eng", ""]: english = 4.49 GB
 //      ["rus", ""]: russian = 4.49 ГБ
 //      ["byte/eng/rus", "attr", "data-ts_text"]: data from attribute
 // baseURL: Link generation = baseURL + url
