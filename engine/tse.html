@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSE</title>
+  <link rel="shortcut icon" href="icon/tse-32.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/tse.css">
+</head>
+<body>
+  <div class="container-head">
+    <h1 id="logoMenuActivator" class="logo">TSE</h1>
+    <div class="search-form-container">
+      <form class="search-form" id="searchForm">
+        <input id="searchString" type="text" autofocus autocomplete="off">
+        <input id="searchButton" type="submit" value="Search">
+        <ul class="search-form-suggestions" id="suggestions"></ul>
+      </form>
+    </div>
+  </div>
+  <div class="container-body">
+    <div class="container-menu">
+      <div id="menuActivator" class="menu_activator active">
+        <img class="menu_img-arrow" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUwIDUwIiBoZWlnaHQ9IjUwcHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgd2lkdGg9IjUwcHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxyZWN0IGZpbGw9Im5vbmUiIGhlaWdodD0iNTAiIHdpZHRoPSI1MCIvPjxwb2x5Z29uIHBvaW50cz0iMTUsMi43NSAxMi45MTQsNC44MzYgMzMuMDc4LDI1IDEyLjkxNCw0NS4xNjQgMTUsNDcuMjUgMzcuMjUsMjUgIi8+PC9zdmc+" alt="arrow">
+      </div>
+      <div class="menu active" id="menu">
+        <div class="menu_trackers" id="menuTrackers"></div>
+        <a class="menu_a-button" href="custom.html" title="Edit custom trackers list">Trackers</a>
+        <button id="defaultButton" class="menu_button" title="Removes all addon settings">Reset</button>
+        <div class="menu_settings">
+          <label class="menu_context-toggle" title="TSE will get results with top seeders instead of the newest (default)">
+            <input type="checkbox" id="topSeedsModeCheckbox">
+            TopSeeds mode
+          </label>
+          <label class="menu_context-toggle" title="Adds &quot;search for torrents&quot; context menu item">
+            <input type="checkbox" id="contextMenuCheckbox">
+            Context menu
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="table-div" id="tableDiv">
+      <table class="table" id="table">
+        <thead>
+          <tr id="thTr">
+            <th class="th" data-id="0">T</th>
+            <th class="th" data-id="3">Date</th>
+            <th class="th table_title" data-id="5">Title</th>
+            <th class="th table_size" data-id="7">Size</th>
+            <th class="th table_seeds" data-id="9">S</th>
+            <th class="th table_peers" data-id="10">P</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="themeChanger" class="author" title="Dark theme">&copy; <i></i><b>Lord</b> 2020</div>
+  <script src="js/global.js"></script>
+  <script src="js/trackers.js"></script>
+  <script src="js/tse.js"></script>
+  <script src="js/suggestions.js"></script>
+</body>
+</html>

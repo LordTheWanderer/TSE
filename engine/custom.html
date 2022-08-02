@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSE</title>
+  <link rel="shortcut icon" href="icon/tse-32.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/tse.css">
+</head>
+<body>
+  <div class="container-head">
+    <!-- <h1><span class="logo" onClick="location.href='tse.html'">TSE</span>- Custom trackers editor (beta)</h1> -->
+    <h1>
+      <a href="tse.html" class="logo">TSE</a>- Custom trackers editor
+    </h1>
+  </div>
+  <div class="container-body">
+    <div class="container-menu">
+      <div class="menu active container-menu-custom" id="menu">
+        <div class="menu_trackers" id="menuTrackers">
+          <h4>Standart</h4>
+          <div id="standartTrackersList"></div>
+          <h4>Custom</h4>
+          <div id="customTrackersList"></div>
+        </div>
+        <button id="saveCustomTrackers">Save</button>
+        <button id="resetCustomTrackers">Reset</button>
+        <button id="exampleCustomTrackers">Load Example</button>
+      </div>
+    </div>
+    <div class="table-div" id="tableDiv">
+      <textarea id="customTrackers" rows=50></textarea>
+    </div>
+  </div>
+  <div id="themeChanger" class="author">&copy; <i></i><b>Lord</b> 2020</div>
+  <script src="js/global.js"></script>
+  <script src="js/trackers.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>
