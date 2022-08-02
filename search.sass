@@ -1,0 +1,72 @@
+// $blue : #2d41b4
+// $blueBg : #f1f8ff
+// $greyLight : #d8d8d8
+
+html
+    --bg: #fff
+    --bgLight: #fff
+    --bgSelect: #f1f8ff
+    --bgBorder: #00000010
+    --color: #000
+    &.dark
+      --bg: #1e1e1e
+      --bgLight: #303030
+      --bgSelect: #5a5a5a36
+      --bgBorder: #ffffff13
+      --color: #fff
+html, body
+  width: 243px
+  background: transparent
+  background: var(--bg)
+*
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  margin: 0
+  padding: 0
+  color: var(--color)
+.search-form-flex
+  display: flex
+#searchString
+  padding: 4px
+  border: 1px solid var(--bgBorder)
+  border-radius: 2px 0 0 2px
+  font-size: 14px
+  margin-right: 0
+  flex-grow: 1
+  background: var(--bgLight)
+  outline: none
+#searchButton
+  color: var(--color)
+  padding: 4px
+  background-color: transparent
+  border: 1px solid var(--bgBorder)
+  margin: 0
+  transition: color .3s, background-color .3s
+  border-left: none
+  border-radius: 0 2px 2px 0
+  outline: none
+  &:hover
+    cursor: pointer
+    color: var(--color)
+    background-color: var(--bgSelect)
+
+.search-form
+  position: relative
+.search-form-suggestions
+  position: relative
+  border: none
+  top: 100%
+  left: 0
+  right: 0
+  width: 100%
+  padding: 0
+  margin: 0
+  list-style: none
+  background: var(--bg)
+  > li
+    padding: 1.5px 1.5px 2px 1.5px
+    &:hover, &:focus
+      cursor: pointer
+      color: var(--color)
+      background-color: var(--bgSelect)
+  &:empty
+    border: none
