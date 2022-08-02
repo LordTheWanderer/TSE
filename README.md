@@ -42,6 +42,7 @@ Please contact me if you want to use more trackers, I will try to add them in ne
 Пожалуйста, свяжитесь со мной, если вы хотите увидеть в расширении другие трекеры (пока что только через комментарии к расширению).
 
 Changelog
+
 v0.1 03.07.2020
 
 v0.2 08.08.2020
