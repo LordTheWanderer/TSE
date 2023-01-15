@@ -5,7 +5,7 @@ Latest version: https://addons.mozilla.org/en-US/firefox/addon/tse-torrents-sear
 
 Just simple torrents search engine. It doesn't use any third party sites etc. Just vanilla JS.
 
-Trackers support: Rutracker, Rutor, NoNaMe Club, Kinozal, Pirabit, Underverse, BigFANGroup, UnionGang, RiperAM, bitru.
+Trackers support: Rutracker, Rutor, NoNaMe Club, Kinozal, Pirabit, BigFANGroup, UnionGang, RiperAM, bitru.
 
 Main features:
 - Simultaneous search across multiple trackers
@@ -25,7 +25,7 @@ Please contact me if you want to use more trackers, I will try to add them in ne
 
 Простой поисковик по популярным трекерам без использования внешних сайтов, написанный на чистом JS.
 
-Поддерживет: Rutracker (Рутрекер), Rutor (Рутор), NoNaMe Club (ННМ Клуб), Kinozal (Кинозал), Pirabit, Underverse, Filebase, BigFANGroup, UnionGang, RiperAM, bitru.
+Поддерживет: Rutracker (Рутрекер), Rutor (Рутор), NoNaMe Club (ННМ Клуб), Kinozal (Кинозал), Pirabit, BigFANGroup, UnionGang, RiperAM, bitru.
 
 Основные возможности:
 - Поиск по нескольким трекерам
