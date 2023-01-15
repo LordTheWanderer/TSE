@@ -82,3 +82,7 @@ v0.5 06.12.2021
 v0.5.1 02.08.2022
 + Added trackers errors detection
 - Removed Filebase tracker since it doesn't work anymore
+
+v0.5.2 15.01.2023
+* Kinozal: changed from http to https
+- Removed Underverse tracker since it doesn't work anymore
