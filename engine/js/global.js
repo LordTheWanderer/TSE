@@ -1,5 +1,6 @@
 // universal extension api
 // window.browser = (function () {return window.msBrowser || window.browser || window.chrome;})();
+var browser = chrome || browser;
 
 // theme changer
 let themeChanger = document.querySelector("#themeChanger");

@@ -1,8 +1,9 @@
-// universal extension api
-// window.browser = (function () {return window.msBrowser || window.browser || window.chrome;})();
+var browser = chrome || browser;
 
 // context menu re-creation every browser load
-var isContextMenuActive = JSON.parse(localStorage.getItem("isContextMenuActive")) || "false";
+// var isContextMenuActive = "false"; // #Chrome
+var isContextMenuActive = browser.storage.local.get("isContextMenuActive") || "false";
+
 if (isContextMenuActive == "true") {
   browser.contextMenus.create({
     id: "selectionForTSE",

@@ -86,3 +86,6 @@ v0.5.1 02.08.2022
 v0.5.2 15.01.2023
 * Kinozal: changed from http to https
 - Removed Underverse tracker since it doesn't work anymore
+
+v0.5.3 26.04.2023
+* Rutor: changed from http to https
