@@ -2,7 +2,7 @@ var browser = chrome || browser;
 
 // context menu re-creation every browser load
 // var isContextMenuActive = "false"; // #Chrome
-var isContextMenuActive = JSON.parse(browser.storage.getItem("isContextMenuActive")) || "false";
+var isContextMenuActive = JSON.parse(localStorage.getItem("isContextMenuActive")) || "false";
 
 if (isContextMenuActive == "true") {
   browser.contextMenus.create({
