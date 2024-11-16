@@ -538,6 +538,42 @@ function parser(text, tracker) {
         }
     }
     var i = 0;
+
+    // UNIONGAN TEMPORAL FIX START
+    if (tracker["trackerName"] == "UnionGang") {
+        var uniListTitle = parser.parseFromString(text, "text/html").querySelectorAll(".torcont");
+        var uniListData = parser.parseFromString(text, "text/html").querySelectorAll(".torcontduo");
+
+        for (i = 0 + skipFromStart; i < listLength; i++) {
+            trackerName = tracker["trackerName"];
+            trackerIcon = tracker["trackerIcon"];
+            trackerURL = tracker["trackerURL"];
+            var dateByte = -1, date = -1, seeds = -1, peers = -1;
+                
+            title = uniListTitle[i].querySelector("strong").innerText;
+            baseURL = tracker["baseURL"];
+            baseDownloadURL = tracker["baseDownloadURL"];
+            url = baseURL + uniListTitle[i].querySelector("a.alink").getAttribute("href");
+
+            dateByte = formatDateToByte(uniListData[i].children[4].querySelector("a").innerText, ["rusLines"]);
+            date = formatDate(uniListData[i].children[4], "a", tracker["dateType"], ["rusLines"]);
+            sizeByte = formatSizeToByte(uniListData[i].children[1].innerText, ["eng"]);
+            size = formatSize(uniListData[i], "td.row2", ["eng"]);
+            downloadURL = baseDownloadURL + uniListTitle[i].querySelector("a.alink").getAttribute("href");
+
+            seeds = +uniListData[i].children[2].children[0].innerText;
+            peers = +uniListData[i].children[2].children[1].innerText;
+
+            isHidden = false;
+            resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden]);
+        }
+        genTrackerResultsCount(tracker["trackerName"], i - skipFromStart);
+        sort();
+        return 0;
+    }
+    // UNIONGAN TEMPORAL FIX END
+
+
     for (i = 0 + skipFromStart; i < listLength; i++) {
         trackerName = tracker["trackerName"];
         trackerIcon = tracker["trackerIcon"];
@@ -551,7 +587,9 @@ function parser(text, tracker) {
         title = list[i].querySelector(tracker["title"]).innerText;
         baseURL = tracker["baseURL"];
         baseDownloadURL = tracker["baseDownloadURL"];
-        url = baseURL + list[i].querySelector(tracker["url"]).getAttribute("href");
+        let currentURL = list[i].querySelector(tracker["url"]).getAttribute("href");
+        if (currentURL.charAt(0) == ".") currentURL = currentURL.substring(1);
+        url = baseURL + currentURL;
         var sizeByte = -1;
         var size = -1;
         if (list[i].querySelector(tracker["size"])) {
@@ -562,9 +600,12 @@ function parser(text, tracker) {
         if (tracker["seeds"] && !isNaN(list[i].querySelector(tracker["seeds"]).innerText)) seeds = +list[i].querySelector(tracker["seeds"]).innerText;
         if (tracker["peers"] && !isNaN(list[i].querySelector(tracker["peers"]).innerText)) peers = +list[i].querySelector(tracker["peers"]).innerText;
         if (list[i].querySelector(tracker["downloadURL"])) {
-            downloadURL = baseDownloadURL + list[i].querySelector(tracker["downloadURL"]).getAttribute("href");
+            let currentDownloadURL = list[i].querySelector(tracker["downloadURL"]).getAttribute("href");
+            if (currentDownloadURL.charAt(0) == ".") currentDownloadURL = currentDownloadURL.substring(1);
+            downloadURL = baseDownloadURL + currentDownloadURL;
         }
         isHidden = false;
+
         resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden]);
     }
     genTrackerResultsCount(tracker["trackerName"], i - skipFromStart);

@@ -89,3 +89,20 @@ v0.5.2 15.01.2023
 
 v0.5.3 26.04.2023
 * Rutor: changed from http to https
+
+v0.5.4 21.05.2023
+* Fixed a bug related to the inability to select additional trackers
+
+v0.5.5 15.11.2024
+* Fixed a bug with Rutor's TopSeeds mode (was searching for whole phrase), thanks to hArtKor-89
+* RiperAM: changed from http to https
+* Fixed UnionGang
+- Disabled Piratbit
+
+v0.5.6 16.11.2024
++ Added tapochek.net (works only logged in)
+* Fixed UnionGang
+
+
+FIX UnionGang (make universal)
+FIX Tapochek registraion redirection
