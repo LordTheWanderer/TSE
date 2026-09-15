@@ -1,6 +1,4 @@
-// universal extension api
-// window.browser = (function () {return window.msBrowser || window.browser || window.chrome;})();
-// var browser = chrome || browser;
+var browser = chrome || browser; // compatibility with old Chrome
 
 // theme changer
 let themeChanger = document.querySelector("#themeChanger");

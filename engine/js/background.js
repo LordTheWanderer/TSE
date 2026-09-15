@@ -1,5 +1,6 @@
+var browser = chrome || browser; // compatibility with old Chrome
+
 var isContextMenuActive = "false";
-// isContextMenuActive = JSON.parse(localStorage.getItem("isContextMenuActive"));
 
 browser.runtime.onInstalled.addListener(async () => {
   const result = await browser.storage.local.get(["isContextMenuActive"]);
