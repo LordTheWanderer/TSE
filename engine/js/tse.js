@@ -468,13 +468,47 @@ function search(search) {
     });
 }
 
+function encodeURLWin1251(str) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        let code = str.charCodeAt(i);
+        
+        // Handle standard ASCII characters (0-127) unchanged
+        if (code < 128) {
+            // URL encode special characters if needed, or keep alphanumeric
+            if (/^[a-zA-Z0-9_.~-]$/.test(str[i])) {
+                result += str[i];
+            } else {
+                result += '%' + code.toString(16).toUpperCase().padStart(2, '0');
+            }
+        } 
+        // Handle Cyrillic Capital Letter IO (Ё)
+        else if (code === 1025) {
+            result += '%A8';
+        } 
+        // Handle Cyrillic Small Letter IO (ё)
+        else if (code === 1105) {
+            result += '%B8';
+        } 
+        // Handle standard Russian Cyrillic alphabet (А-я)
+        else if (code >= 1040 && code <= 1103) {
+            let win1251Byte = code - 848; // Shift UTF-16 code to CP1251 byte value
+            result += '%' + win1251Byte.toString(16).toUpperCase();
+        }
+    }
+    return result;
+}
+
 // gets page from tracker
 function fetcher(search, tracker) {
     if (tracker["trackerActive"]) {
         var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "false";
         let searchURL = tracker["searchURL"] + search;
+        if (tracker["windows1251Search"]) searchURL = tracker["searchURL"] + encodeURLWin1251(search);
         if (isTopSeedsModeActive == "true") searchURL = tracker["searchURLTopSeeds"] + search;
-        if (tracker["windows1251"] && tracker["trackerActive"]) {
+        if (isTopSeedsModeActive == "true" && tracker["windows1251Search"]) searchURL = tracker["searchURLTopSeeds"] + encodeURLWin1251(search);
+
+        if (!tracker["cloudflare"] && tracker["windows1251"] && tracker["trackerActive"]) {
             fetch(searchURL, 
                 {  
                     method: "GET"
@@ -497,7 +531,7 @@ function fetcher(search, tracker) {
                     console.log(error);
                     genTrackerResultsCount(tracker["trackerName"], error);
                 })
-        } else if (tracker["trackerActive"]) {
+        } else if (!tracker["cloudflare"] && tracker["trackerActive"]) {
             fetch(searchURL, 
                 {  
                     method: "GET"
@@ -518,6 +552,28 @@ function fetcher(search, tracker) {
                     console.log(error);
                     genTrackerResultsCount(tracker["trackerName"], error);
                 })                
+        }
+        if (tracker["cloudflare"] && tracker["trackerActive"]) {
+            browser.runtime.sendMessage({
+                action: "fetchAndExtract",
+                url: searchURL
+            })
+            .then(response => {
+                if (response.success) return response.data;
+                return null;
+            })
+            .then(text => {
+                if (text) {
+                    parser(text, tracker);
+                } else {
+                    genTrackerResultsCount(tracker["trackerName"], "err");
+                }
+            })
+            .catch(error => {
+                console.log(tracker["trackerName"]);
+                console.log(error);
+                genTrackerResultsCount(tracker["trackerName"], error);
+            })
         }
     }
 }

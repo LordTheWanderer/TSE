@@ -103,6 +103,22 @@ v0.5.6 16.11.2024
 + Added tapochek.net (works only logged in)
 * Fixed UnionGang
 
+v0.6 05.08.2026
+* Manifest V3
+* Added Kinozal.tv mirror and fixed minor bugs on other trackers
+* Fixed search results bugs with 1251 codepage on some trackers
+* Trackers using Cloudflare protection have been fixed, these trackers open in a new tab
++ scripting permission has been added to read search results from cloudflare protected trackers
++ tabHide permission has been added to hide tabs when reading search results from cloudflare protected trackers
 
-FIX UnionGang (make universal)
-FIX Tapochek registraion redirection
+v0.6.1 08.08.2026
+* Changed http://suggestqueries.google.com to https
+* Fixed cloudflare (again)
+* tabHide permission has been removed
+
+v0.6.2 11.09.2026
+* Changed kinozal.tv to kinozal.me
+* kinozal.me uses cloudflare protection
+
+v0.6.3 15.09.2026
+* Fixed extension for Chrome

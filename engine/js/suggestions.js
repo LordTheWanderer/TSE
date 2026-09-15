@@ -19,7 +19,7 @@ window.addEventListener("popstate", function() {
 
 function handleInputSuggestions() {
     if (input.value.length > 0) {
-        fetch("http://suggestqueries.google.com/complete/search?client=firefox&q=" + input.value, 
+        fetch("https://suggestqueries.google.com/complete/search?client=firefox&q=" + input.value, 
             {  
                 method: "GET"
             })
