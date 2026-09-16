@@ -19,15 +19,19 @@ window.addEventListener("popstate", function() {
 
 function handleInputSuggestions() {
     if (input.value.length > 0) {
-        fetch("https://suggestqueries.google.com/complete/search?client=firefox&q=" + input.value, 
-            {  
-                method: "GET"
-            })
-            .then(response => response.text())
-            .then(text => {
-                oldSearchValue = input.value;
-                handleGoogleResult(text);
-            })
+        // privacy: only send the query to Google's suggestions API if the user has explicitly opted in
+        browser.storage.local.get(["searchSuggestionsEnabled"]).then((result) => {
+            if (result.searchSuggestionsEnabled !== true) return;
+            fetch("https://suggestqueries.google.com/complete/search?client=firefox&q=" + input.value, 
+                {  
+                    method: "GET"
+                })
+                .then(response => response.text())
+                .then(text => {
+                    oldSearchValue = input.value;
+                    handleGoogleResult(text);
+                })
+        });
         } else {
             suggestions.replaceChildren();
         }
