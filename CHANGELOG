@@ -122,3 +122,8 @@ v0.6.2 11.09.2026
 
 v0.6.3 15.09.2026
 * Fixed extension for Chrome
+
+v0.6.4 17.09.2026
+* TSE works on Chrome (github -> Releases)
+* TopSeeds mode is ON by default
+* TSE uses system theme colors (light/dark) by default

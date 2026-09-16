@@ -502,7 +502,7 @@ function encodeURLWin1251(str) {
 // gets page from tracker
 function fetcher(search, tracker) {
     if (tracker["trackerActive"]) {
-        var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "false";
+        var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "true";
         let searchURL = tracker["searchURL"] + search;
         if (tracker["windows1251Search"]) searchURL = tracker["searchURL"] + encodeURLWin1251(search);
         if (isTopSeedsModeActive == "true") searchURL = tracker["searchURLTopSeeds"] + search;
@@ -814,10 +814,11 @@ contextCheckbox.addEventListener("change", function() {
 });
 
 // TopSeeds Mode
-var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "false";
+var isTopSeedsModeActive = JSON.parse(localStorage.getItem("isTopSeedsModeActive")) || "true";
 var topSeedsModeCheckbox = document.querySelector("#topSeedsModeCheckbox");
 isTopSeedsModeActive == "true" ? topSeedsModeCheckbox.checked = true : topSeedsModeCheckbox.checked = false;
 topSeedsModeCheckbox.addEventListener("change", function() {
-    topSeedsModeCheckbox.checked ? localStorage.setItem("isTopSeedsModeActive", JSON.stringify("true")): localStorage.removeItem("isTopSeedsModeActive");
+    topSeedsModeCheckbox.checked ? localStorage.removeItem("isTopSeedsModeActive"): localStorage.setItem("isTopSeedsModeActive", JSON.stringify("false"));
     search(queryString);
 });
+

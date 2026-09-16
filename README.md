@@ -2,10 +2,11 @@
 TSE - Torrents Search Engine
 
 Latest version: https://addons.mozilla.org/en-US/firefox/addon/tse-torrents-search-engine/
+Latest Chrome version: https://github.com/LordTheWanderer/TSE/releases (GitHub)
 
 Just simple torrents search engine. It doesn't use any third party sites etc. Just vanilla JS.
 
-Trackers support: Rutracker, Rutor, NoNaMe Club, Tapochek.net, Kinozal, BigFANGroup, UnionGang, RiperAM, bitru.
+Trackers support: Rutracker, Rutor, NoNaMe Club, Tapochek, Kinozal, BigFANGroup, UnionGang, RiperAM, bitru.
 
 Main features:
 - Simultaneous search across multiple trackers
@@ -17,15 +18,15 @@ Main features:
 - Direct .torrent download (click on torrent's size) - Doesn't work for some trackers
 - Smart view (click on logo or arrow to show/hide left menu)
 - Ability to remove all settings ("Reset button")
-- TopSeeds mode: TSE will get results with top seeders instead of the newest (default).
+- TopSeeds mode (ON by default): TSE will get results with top seeders instead of the newest (default).
 Results with the largest amount of seeders are not on the first page of tracker in some cases, because trackers sort results by newest by default; TSE gets only first page of results. TopSeeds mode allows you to get results, that was initially sorted by trackers by the seeders amount.
 
-Please contact me if you want to use more trackers, I will try to add them in next releases (GitHub or addon's comments).
+Please contact me if you want to use more trackers, I will try to add them in next releases (GitHub https://github.com/LordTheWanderer/TSE or addon's comments).
 
 
 Простой поисковик по популярным трекерам без использования внешних сайтов, написанный на чистом JS.
 
-Поддерживет: Rutracker (Рутрекер), Rutor (Рутор), NoNaMe Club (ННМ Клуб), Tapochek.net, Kinozal (Кинозал), BigFANGroup, UnionGang, RiperAM, bitru.
+Поддерживет: Rutracker (Рутрекер), Rutor (Рутор), NoNaMe Club (ННМ Клуб), Tapochek, Kinozal (Кинозал), BigFANGroup, UnionGang, RiperAM, bitru.
 
 Основные возможности:
 - Поиск по нескольким трекерам
@@ -37,7 +38,7 @@ Please contact me if you want to use more trackers, I will try to add them in ne
 - Прямое скачивание .torrent файлов (по нажатию на размер торрента) Не работает для некоторых трекеров
 - Удобный внешний вид (по нажатию на лого или стрелочку скрывается левое меню)
 - Возможность полностью удалить настройки расширения (кнопка "Reset")
-- TopSeeds режим: TSE будет получать результаты с максимальным количеством сидеров, а не самые новые (по умолчанию).
+- TopSeeds режим (вкл по умолчанию): TSE будет получать результаты с максимальным количеством сидеров, а не самые новые (по умолчанию).
 В некоторых случаях результаты с наибольшим количеством сидеров находятся не на первой странице трекера, т.к. по умолчанию трекеры сортируют их по новизне; TSE же получает только первую страницу результатов. TopSeeds режим позволяет получать результаты, изначально отсортированные трекерами по количеству сидеров.
 
-Пожалуйста, свяжитесь со мной, если вы хотите увидеть в расширении другие трекеры (GitHub или комментарии к расширению).
+Пожалуйста, свяжитесь со мной, если вы хотите увидеть в расширении другие трекеры (GitHub https://github.com/LordTheWanderer/TSE или комментарии к расширению).
