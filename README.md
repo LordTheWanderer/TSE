@@ -3,7 +3,7 @@ TSE - Torrents Search Engine
 
 Latest version: https://addons.mozilla.org/en-US/firefox/addon/tse-torrents-search-engine/
 
-Latest Chrome version: https://github.com/LordTheWanderer/TSE/releases (GitHub)
+Latest Chrome version: https://github.com/LordTheWanderer/TSE/releases (GitHub, .crx file)
 
 Just simple torrents search engine. It doesn't use any third party sites etc. Just vanilla JS.
 Trackers support: Rutracker, Rutor, NoNaMe Club, Tapochek, Kinozal, BigFANGroup, UnionGang, RiperAM, bitru.
