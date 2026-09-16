@@ -202,6 +202,9 @@ function handleDefaultButton() {
     var contextMenuCheckbox = document.querySelector("#contextMenuCheckbox");
     if (contextMenuCheckbox.checked == true) contextMenuCheckbox.click(); 
     setContextMenu();
+    var suggestionsCheckbox = document.querySelector("#suggestionsCheckbox");
+    if (suggestionsCheckbox.checked == true) suggestionsCheckbox.click(); 
+    setSuggestionsCheckbox();
     var topSeedsModeCheckbox = document.querySelector("#topSeedsModeCheckbox");
     if (topSeedsModeCheckbox.checked == true) topSeedsModeCheckbox.click();
     setMenuActive();
@@ -822,3 +825,34 @@ topSeedsModeCheckbox.addEventListener("change", function() {
     search(queryString);
 });
 
+// Google suggestions on/off
+var isSuggestionsActive = JSON.parse(localStorage.getItem("isSuggestionsActive")) || "false";
+var suggestionsCheckbox = document.querySelector("#suggestionsCheckbox");
+isSuggestionsActive == "true" ? suggestionsCheckbox.checked = true : suggestionsCheckbox.checked = false;
+suggestionsCheckbox.addEventListener("change", function(e) {
+    let suggestionPermissions = {
+        origins: ["*://suggestqueries.google.com/*"]
+    };
+    if (suggestionsCheckbox.checked) {
+        browser.permissions.request(suggestionPermissions).then(function(response) {
+            if (response) {
+                e.target.checked = true;
+                localStorage.setItem("isSuggestionsActive", JSON.stringify("true"));
+                location.reload();
+            } else {
+                e.target.checked = false;
+                localStorage.removeItem("isSuggestionsActive");
+            }
+        });
+    } else {
+        browser.permissions.remove(suggestionPermissions).then(function(response) {
+            if (response) {
+                e.target.checked = false;
+                localStorage.removeItem("isSuggestionsActive");
+                location.reload();
+            } else {
+                e.target.checked = true;
+            }
+        });
+    }
+});

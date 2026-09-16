@@ -2,7 +2,7 @@
 	"description": "Simple torrents search engine",
 	"manifest_version": 3,
 	"name": "TSE - Torrents Search Engine",
-	"version": "0.6.4",
+	"version": "0.6.5",
 	"author": "Lord",
 	"icons": {
 		"96": "engine/icon/tse-96.png",
@@ -17,13 +17,13 @@
 	],
 	
 	"host_permissions": [		
-		"*://suggestqueries.google.com/*",
 		"*://rutracker.org/*",
 		"*://rutor.info/*",
 		"*://nnmclub.to/*"
 	],
-
+	
 	"optional_host_permissions": [
+		"*://suggestqueries.google.com/*",
 		"*://*/*"
 	],
 	

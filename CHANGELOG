@@ -127,3 +127,6 @@ v0.6.4 17.09.2026
 * TSE works on Chrome (github -> Releases)
 * TopSeeds mode is ON by default
 * TSE uses system theme colors (light/dark) by default
+
+v0.6.5 17.09.2026
+* Google's suggestions are now optional and OFF by default for privacy reasons
