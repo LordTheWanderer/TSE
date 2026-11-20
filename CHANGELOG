@@ -130,3 +130,7 @@ v0.6.4 17.09.2026
 
 v0.6.5 17.09.2026
 * Google's suggestions are now optional and OFF by default for privacy reasons
+
+v0.6.6 20.11.2026
++ Added results filter by category (All/Films/Music/Games/Books/Other) with counts
++ Added category selectors for Rutracker, Rutor, Tapochek

@@ -161,6 +161,38 @@ h1 {
   padding: 0;
 }
 
+.category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 4px 0;
+  background: var(--bg);
+}
+
+.category-button {
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+.category-button.active {
+  color: var(--blue);
+  background-color: var(--bgSelect);
+  border-color: var(--blue);
+}
+
+.category-count {
+  padding-left: 4px;
+  font-size: 9px;
+  color: var(--grey);
+}
+
+.category-button.active .category-count {
+  color: var(--blue);
+}
+
 .table {
   border-collapse: collapse;
   width: 100%;

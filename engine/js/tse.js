@@ -17,8 +17,22 @@ if (customTrackers != "") trackers = trackers.concat(JSON.parse(customTrackers))
 var queryString = urlDecode(location.search.substring(1));
 
 document.getElementById("searchString").value = queryString;
+
+// result categories
+var categories = [
+    { id: "all", name: "All" },
+    { id: "films", name: "Films" },
+    { id: "music", name: "Music" },
+    { id: "games", name: "Games" },
+    { id: "books", name: "Books" },
+    { id: "other", name: "Other" }
+];
+var activeCategory = JSON.parse(localStorage.getItem("activeCategory")) || "all";
+if (!categories.some(function(category) { return category.id === activeCategory; })) activeCategory = "all";
+
 setMenuActive();
 setTrackersActive();
+genCategoryBar();
 search(queryString);
 genTrackersMenu();
 var sortRow = 0;
@@ -83,6 +97,102 @@ function genTrackersMenu() {
         menuDiv.appendChild(menuItem);
         menu.appendChild(menuDiv);
     }
+}
+
+function genCategoryBar() {
+    var bar = document.getElementById("categoryBar");
+    if (!bar) return;
+    bar.replaceChildren();
+    categories.forEach(function(category) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("category-button");
+        if (activeCategory === category.id) button.classList.add("active");
+        button.setAttribute("data-category", category.id);
+        button.innerText = category.name;
+        var count = document.createElement("span");
+        count.classList.add("category-count");
+        count.setAttribute("data-category-count", category.id);
+        count.innerText = "0";
+        button.appendChild(count);
+        button.addEventListener("click", handleCategoryClick);
+        bar.appendChild(button);
+    });
+}
+
+function handleCategoryClick(e) {
+    var button = e.currentTarget;
+    activeCategory = button.getAttribute("data-category");
+    localStorage.setItem("activeCategory", JSON.stringify(activeCategory));
+    document.querySelectorAll(".category-button").forEach(function(item) {
+        item.classList.toggle("active", item === button);
+    });
+    genTable();
+}
+
+function updateCategoryCounts() {
+    var counts = { all: 0, films: 0, music: 0, games: 0, books: 0, other: 0 };
+    for (var i = 0; i < resultArray.length; i++) {
+        if (resultArray[i][12]) continue;
+        counts.all += 1;
+        var category = resultArray[i][13] || "other";
+        counts[category] = (counts[category] || 0) + 1;
+    }
+    document.querySelectorAll(".category-count").forEach(function(element) {
+        element.innerText = counts[element.getAttribute("data-category-count")] || 0;
+    });
+}
+
+var categoryRules = [
+    { category: "films", weight: 2, regex: /(фильм|кино|мультфильм|мультсериал)/g },
+    { category: "films", weight: 2, regex: /\b(movie|movies|film|films)\b/g },
+    { category: "films", weight: 2, regex: /\b(bdrip|bdremux|brrip|web-?dl-?rip|web-?dl|webrip|web-?rip|hdrip|dvdrip|satrip|hdtv|blu-?ray|remux|hybridrip|1080p|720p|2160p|4k|uhd)\b/g },
+    { category: "films", weight: 2, regex: /(сериал|serial|season|сезон|s\d{1,2}e\d{1,2})/g },
+    { category: "films", weight: 2, regex: /(мульт|cartoon|аниме|anime)/g },
+    { category: "films", weight: 1, regex: /\b(x264|x265|hevc|avc|ac3|dts)\b/g },
+
+    { category: "music", weight: 3, regex: /\b(mp3|flac|lossless|wav|aac|m4a|opus|ape|alac)\b/g },
+    { category: "music", weight: 3, regex: /(музык|music|саундтрек|soundtrack)/g },
+    { category: "music", weight: 2, regex: /\b(album|single|discography|ost)\b/g },
+    { category: "music", weight: 2, regex: /(альбом|сингл|дискограф)/g },
+
+    { category: "games", weight: 3, regex: /\b(repack|ps[2-5]|xbox|nintendo|switch|steam|gog|epic|dlc)\b/g },
+    { category: "games", weight: 3, regex: /(^|[^а-яa-z])репак/g },
+    { category: "games", weight: 2, regex: /(^|[^а-яa-z])игр/g },
+    { category: "games", weight: 2, regex: /\b(game|games)\b/g },
+    { category: "games", weight: 1, regex: /\b(pc|windows|linux|macos)\b/g },
+
+    { category: "books", weight: 3, regex: /\b(fb2|epub|pdf|djvu|mobi)\b/g },
+    { category: "books", weight: 3, regex: /(аудиокниг|audiobook|журнал|magazine)/g },
+    { category: "books", weight: 2, regex: /(^|[^а-яa-z])книг/g },
+    { category: "books", weight: 2, regex: /\b(book|books)\b/g },
+    { category: "books", weight: 2, regex: /(литератур)/g }
+];
+
+function detectCategory(title, rowText) {
+    var text = (title + " " + (rowText || "")).toLowerCase().replace(/ё/g, "е");
+    var scores = { films: 0, music: 0, games: 0, books: 0 };
+    for (var i = 0; i < categoryRules.length; i++) {
+        var rule = categoryRules[i];
+        var matches = text.match(rule.regex);
+        if (matches) scores[rule.category] += rule.weight * Math.min(matches.length, 3);
+    }
+    var bestCategory = "other";
+    var bestScore = 0;
+    ["films", "music", "games", "books"].forEach(function(category) {
+        if (scores[category] > bestScore) {
+            bestScore = scores[category];
+            bestCategory = category;
+        }
+    });
+    return bestScore >= 2 ? bestCategory : "other";
+}
+
+function getTrackerCategoryText(row, tracker) {
+    if (!tracker["category"]) return "";
+    var element = row.querySelector(tracker["category"]);
+    if (!element) return "";
+    return element.getAttribute("title") || element.innerText || "";
 }
 
 function genTrackerResultsCount(trackerName, count) {
@@ -198,6 +308,7 @@ function handleDefaultButton() {
     localStorage.clear();
     sortBy = [-1, -1];
     menuActive = "true";
+    activeCategory = "all";
     for (var i = 0; i < trackersActive.length; i++) trackersActive[i] = false;
     var contextMenuCheckbox = document.querySelector("#contextMenuCheckbox");
     if (contextMenuCheckbox.checked == true) contextMenuCheckbox.click(); 
@@ -215,6 +326,9 @@ function handleDefaultButton() {
     }
     search(queryString);
     genTrackersMenu();
+    document.querySelectorAll(".category-button").forEach(function(button) {
+        button.classList.toggle("active", button.getAttribute("data-category") === "all");
+    });
     document.documentElement.classList.remove("dark");
 
     // removes trackers permissions
@@ -460,6 +574,7 @@ function search(search) {
     if (table) {
         table.tBodies[0].innerHTML = "";
     }
+    updateCategoryCounts();
     if (trackers.length > 0) {
         for (tracker of trackers) fetcher(search, tracker);
     } else {
@@ -624,7 +739,7 @@ function parser(text, tracker) {
             peers = +uniListData[i].children[2].children[1].innerText;
 
             isHidden = false;
-            resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden]);
+            resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden, detectCategory(title, getTrackerCategoryText(list[i], tracker) + " " + uniListTitle[i].innerText + " " + uniListData[i].innerText)]);
         }
         genTrackerResultsCount(tracker["trackerName"], i - skipFromStart);
         sort();
@@ -665,7 +780,7 @@ function parser(text, tracker) {
         }
         isHidden = false;
 
-        resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden]);
+        resultArray.push([trackerName, trackerIcon, trackerURL, dateByte, date, title, url, sizeByte, size, seeds, peers, downloadURL, isHidden, detectCategory(title, getTrackerCategoryText(list[i], tracker) + " " + list[i].innerText)]);
     }
     genTrackerResultsCount(tracker["trackerName"], i - skipFromStart);
     sort();
@@ -674,7 +789,7 @@ function parser(text, tracker) {
 function genTable() {
     table.tBodies[0].innerHTML = "";
     for (var i = 0; i < resultArray.length; i++) {
-        if (!resultArray[i][12]) {
+        if (!resultArray[i][12] && (activeCategory === "all" || resultArray[i][13] === activeCategory)) {
             var tr = table.tBodies[0].insertRow(-1);
             tr.setAttribute("data-tracker-name", resultArray[i][0]);
             
@@ -712,6 +827,7 @@ function genTable() {
             td.classList.add("table_column__center");
         }
     }
+    updateCategoryCounts();
     //browser.permissions.getAll().then((result) => {console.table(result.origins);});
 }
 
