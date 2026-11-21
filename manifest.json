@@ -2,7 +2,7 @@
 	"description": "Simple torrents search engine",
 	"manifest_version": 3,
 	"name": "TSE - Torrents Search Engine",
-	"version": "0.6.5",
+	"version": "0.6.6",
 	"author": "Lord",
 	"icons": {
 		"96": "engine/icon/tse-96.png",
